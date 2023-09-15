@@ -1,0 +1,12 @@
+### GET ALL
+GET http://localhost:8080/products
+
+### CREATE ONE
+POST http://localhost:8080/products
+Content-Type: application/json
+{
+"id":"9",
+"name":"A big whale",
+"category": "e-girls",
+"price": "0.99",
+}
