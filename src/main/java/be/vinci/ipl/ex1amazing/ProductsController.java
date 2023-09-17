@@ -1,18 +1,11 @@
 package be.vinci.ipl.ex1amazing;
 
-import static java.nio.file.Files.exists;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ProductsController {
@@ -25,11 +18,6 @@ public class ProductsController {
     products.add(new Product(3, "Natural and totally legal steroids", "Bodybuilding Cheatcodes", 789.99));
   }
 
-  @GetMapping("/products")
-  public Iterable<Product> readAll(){
-    return products;
-  }
-
   @PostMapping("/products")
   public ResponseEntity<Product> createOne(@RequestBody Product product) {
     if (product == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -38,6 +26,46 @@ public class ProductsController {
     }
     products.add(product);
     return new ResponseEntity<>(product, HttpStatus.CREATED);
+  }
+
+  @GetMapping("/products")
+  public Iterable<Product> readAll(){
+    return products;
+  }
+
+  @GetMapping("/products/{id}")
+  public ResponseEntity<Product> readOne(@PathVariable int id){
+    if (id < 1) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    Product pFound = null;
+    for (Product p : products) {
+      if (p.getId() == id){
+        pFound = p;
+        break;
+      }
+    }
+    if (pFound == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    return new ResponseEntity<>(pFound, HttpStatus.OK);
+  }
+
+  @PutMapping("/products/{id}")
+  public ResponseEntity<Product> updateOne(@PathVariable int id, @RequestBody Product product){
+    if (id < 1 || product == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    Product pFound = null;
+    for (Product p : products) {
+      if (p.getId() == id){
+        pFound = p;
+        break;
+      }
+    }
+    if (pFound == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    products.set(products.indexOf(pFound), product);
+    return new ResponseEntity<>(pFound, HttpStatus.OK);
+  }
+
+  @DeleteMapping("/products")
+  public ResponseEntity<Product> deleteAll(){
+    while (!products.isEmpty()) products.remove(0);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 
   @DeleteMapping("/products/{id}")
@@ -55,9 +83,5 @@ public class ProductsController {
     return new ResponseEntity<>(pFound, HttpStatus.OK);
   }
 
-  @DeleteMapping("/products")
-  public ResponseEntity<Product> deleteAll(){
-    while (!products.isEmpty()) products.remove(0);
-    return new ResponseEntity<>(HttpStatus.OK);
-  }
+
 }
