@@ -30,40 +30,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>ga.rugal</groupId>
-            <artifactId>feign-client-generator</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
             <groupId>de.bitgrip.archetypes</groupId>
             <artifactId>spring-boot-service</artifactId>
             <version>0.1.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.tosan.client.http</groupId>
-            <artifactId>tosan-httpclient-spring-boot-core</artifactId>
-            <version>3.0.3</version>
-        </dependency>
-        <dependency>
-            <groupId>com.tosan.client.http</groupId>
-            <artifactId>tosan-httpclient-spring-boot-starter</artifactId>
-            <version>3.0.3</version>
-        </dependency>
-        <dependency>
-            <groupId>com.tosan.client.http</groupId>
-            <artifactId>tosan-httpclient-spring-boot-sample</artifactId>
-            <version>3.0.3</version>
-        </dependency>
-        <dependency>
-            <groupId>com.tosan.client.http</groupId>
-            <artifactId>tosan-httpclient-spring-boot-resttemplate-starter</artifactId>
-            <version>3.0.3</version>
-        </dependency>
-        <dependency>
-            <groupId>com.tosan.client.http</groupId>
-            <artifactId>tosan-httpclient-spring-boot-root</artifactId>
-            <version>3.0.3</version>
-        </dependency>
+
     </dependencies>
     <dependencyManagement>
         <dependencies>

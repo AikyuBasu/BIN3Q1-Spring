@@ -1,5 +1,5 @@
 ### GET ALL
-GET http://localhost:8080/products
+GET http://localhost:9003/products
 
 ### GET ONE BY ID
 GET http://localhost:8080/products/1

@@ -1,0 +1,2 @@
+### GET /wishlists/user/{pseudo} : Récupérer lES wishlistS de l’utilisateur pseudo
+GET http://localhost:9004/wishlists/user/PetWard

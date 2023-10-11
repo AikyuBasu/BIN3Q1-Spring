@@ -1,6 +1,5 @@
-package be.vinci.wishlist;
+package be.vinci.wishlist.models;
 
-import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,9 +9,8 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Wishlist {
-    @Id
-    int id;
-    String pseudo;
-    int productId;
+public class User {
+  private String pseudo;
+  private String firstname;
+  private String lastname;
 }
