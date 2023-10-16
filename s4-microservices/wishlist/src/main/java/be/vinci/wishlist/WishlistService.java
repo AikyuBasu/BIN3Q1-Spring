@@ -3,17 +3,21 @@ package be.vinci.wishlist;
 import be.vinci.wishlist.models.Product;
 import be.vinci.wishlist.models.User;
 import be.vinci.wishlist.models.Wishlist;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import be.vinci.wishlist.repositories.ProductsProxy;
 import be.vinci.wishlist.repositories.UsersProxy;
 import be.vinci.wishlist.repositories.WishlistRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class WishlistService {
   private final ProductsProxy productsProxy;
   private final UsersProxy usersProxy;
+
   private final WishlistRepository wishlistRepository;
 
+  @Autowired
   public WishlistService(ProductsProxy productsProxy, UsersProxy usersProxy, WishlistRepository WishlistRepository) {
     this.productsProxy = productsProxy;
     this.usersProxy = usersProxy;
@@ -38,6 +42,7 @@ public class WishlistService {
   }
 
 
+  @Transactional
   public boolean deleteProductFromWishlist(String pseudo, int productId) {
     User user = usersProxy.readOne(pseudo);
     Product product = productsProxy.readOne(productId);
@@ -60,6 +65,7 @@ public class WishlistService {
     return wishlistRepository.findWishlistsByPseudo(pseudo);
   }
 
+  @Transactional
   public boolean deleteWishlistByUserPseudo(String pseudo) {
     User user = usersProxy.readOne(pseudo);
     if (user == null) {
@@ -69,6 +75,7 @@ public class WishlistService {
     return true;
   }
 
+  @Transactional
   public boolean deleteProductFromAllWishlists(int productId) {
     Product product = productsProxy.readOne(productId);
     if (product == null) {
