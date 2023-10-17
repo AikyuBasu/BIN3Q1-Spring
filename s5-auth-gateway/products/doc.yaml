@@ -1,0 +1,129 @@
+openapi: 3.0.3
+info:
+  title: AmAzInG API
+  description: AmAzInG API description
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+    description: Local server
+paths:
+  /products:
+    get:
+      summary: Get all products
+      operationId: getProducts
+      tags:
+        - products
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/product'
+    post:
+      summary: Create a product
+      operationId: createProduct
+      tags:
+        - products
+      requestBody:
+        description: Product to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/product'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product'
+
+  /products/{id}:
+    get:
+      summary: Get a product
+      operationId: getProduct
+      tags:
+        - products
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product'
+        '404':
+          description: Not Found
+    put:
+      summary: Update a product
+      operationId: updateProduct
+      tags:
+        - products
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Product to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/product'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product'
+        '404':
+          description: Not Found
+    delete:
+      summary: Delete a product
+      operationId: deleteProduct
+      tags:
+        - products
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+
+
+
+components:
+  schemas:
+    product:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        category:
+          type: string
+        price:
+          type: integer
+      example:
+        id: 99
+        name: AmAzInGPrOdUcT
+        category: AmAzInGcAtEgOrY
+        price: 999.99
