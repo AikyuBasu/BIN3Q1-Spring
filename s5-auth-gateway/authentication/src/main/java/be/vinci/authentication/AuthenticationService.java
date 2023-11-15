@@ -28,6 +28,15 @@ public class AuthenticationService {
     return true;
   }
 
+  public boolean updateOne(UnsafeCredentials unsafeCredentials) {
+    if (!repository.existsById(unsafeCredentials.getPseudo())) {
+      return false;
+    }
+    String hashedPassword = BCrypt.hashpw(unsafeCredentials.getPassword(), BCrypt.gensalt());
+    repository.save(unsafeCredentials.makeSafe(hashedPassword));
+    return true;
+  }
+
   public String connect(UnsafeCredentials unsafeCredentials) {
     SafeCredentials safeCredentials = repository.findById(unsafeCredentials.getPseudo()).orElse(null);
     if (safeCredentials == null) return null;
@@ -43,6 +52,14 @@ public class AuthenticationService {
     } catch (JWTVerificationException e) {
       return null;
     }
+  }
+
+  public boolean deleteOne(String pseudo) {
+    if (!repository.existsById(pseudo)) {
+      return false;
+    }
+    repository.deleteById(pseudo);
+    return true;
   }
 
 

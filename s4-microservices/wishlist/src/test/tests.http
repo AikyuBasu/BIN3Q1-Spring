@@ -1,11 +1,18 @@
-### GET /wishlists/user/{pseudo} : Récupérer lES wishlistS de l’utilisateur pseudo
+### GET /wishlists/user/{pseudo} : Récupérer lES wishlistS de l’utilisateur PetWard
 GET http://localhost:9004/wishlists/user/PetWard
+
+### GET /wishlists/user/{pseudo} : Récupérer lES wishlistS de l’utilisateur Cat4Life
+GET http://localhost:9004/wishlists/user/Cat4Life
 
 ### PUT /wishlist/{pseudo}/{productId} : Ajouter un produit à la wishlist de l’utilisateur pseudo
 PUT http://localhost:9004/wishlist/PetWard/3
+
 
 ### DELETE /wishlist/{pseudo}/{productId} : Supprimer un produit de la wishlist de l’utilisateur pseudo
 DELETE http://localhost:9004/wishlist/PetWard/3
 
 ### DELETE /wishlists/user/{pseudo} : Suppression de toutes les wishlist de l'user pseudo
 DELETE http://localhost:9004/wishlists/user/PetWard
+
+### DELETE /wishlists/product/{productId} Supprime le produit de toutes les wishlists
+DELETE http://localhost:9004/wishlists/product/1
