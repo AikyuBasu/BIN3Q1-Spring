@@ -1,10 +1,13 @@
 package vinci.stock.price;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import vinci.stock.price.models.Price;
+import vinci.stock.price.entities.Price;
 
 @RestController
 public class PriceController {
@@ -15,12 +18,17 @@ public class PriceController {
   }
 
   @GetMapping("/price/{ticker}")
-  public Price getPriceFromStock(@PathVariable String ticker) {
-    return null;
+  public ResponseEntity<Integer> getPriceFromStock(@PathVariable String ticker) {
+    int price = priceService.getOne(ticker);
+    return new ResponseEntity<>(price, HttpStatus.OK);
   }
 
   @PatchMapping("/price/{ticker}")
-  public void updatePrice(@PathVariable String ticker) {
-    return;
+  public ResponseEntity<Void> updatePrice(@PathVariable String ticker, @RequestBody int price) {
+    if (price <= 0) {
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    priceService.updateOne(new Price(ticker, price));
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 }
